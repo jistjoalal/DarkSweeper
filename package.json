@@ -1,0 +1,25 @@
+{
+  "name": "minesweeper",
+  "version": "1.0.0",
+  "description": "minesweeper w/ a dark theme",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/jistjoalal/react-minesweeper.git"
+  },
+  "keywords": [
+    "minesweeper"
+  ],
+  "author": "jistjoalal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://gitlab.com/jistjoalal/react-minesweeper/issues"
+  },
+  "homepage": "https://gitlab.com/jistjoalal/react-minesweeper#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
