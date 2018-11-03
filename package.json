@@ -4,6 +4,7 @@
   "description": "minesweeper w/ a dark theme",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js"
     "test": "node test/test.js"
   },
   "repository": {
