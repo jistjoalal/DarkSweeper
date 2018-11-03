@@ -63,12 +63,11 @@ const GameInfo = ({ mines, flags, hidden, time }) =>
 // TODO
 // -fix bug: change size b4 game starts timer, need firstMoveMade state
 //  -maybe set the change size to scale automatically + start new game?
+// -setting flag doesnt work on mobile now (highlights numbers)
 // -win/lose animation/sound?
-// -timer store minutes
+// -timer store minutes?
 // -refactor
-// X-score based on 3BV?
-//   -required clicks = openings + remaining numbers
-//   -(doesnt take chording into account)
+// X-score based on 3BV
 // X-timer
 // X-adjust color theme w/ button
 // X-adjust size + chance
