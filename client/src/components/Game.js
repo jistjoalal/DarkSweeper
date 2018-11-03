@@ -63,6 +63,7 @@ const GameInfo = ({ mines, flags, hidden, time }) =>
 // TODO
 // -fix bug: change size b4 game starts timer, need firstMoveMade state
 //  -maybe set the change size to scale automatically + start new game?
+// -win/lose animation/sound?
 // -timer store minutes
 // -refactor
 // X-score based on 3BV?
@@ -98,7 +99,7 @@ class Game extends Component {
       // menu
       theme: 'dark',
       xray: false,
-      infoOn: true,
+      infoOn: false,
       // internal
       ignoreNextClick: false
     };
