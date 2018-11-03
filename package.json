@@ -4,12 +4,18 @@
   "description": "minesweeper w/ a dark theme",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "client": "cd client && npm start",
+    "server": "node index.js",
+    "dev": "npm run server",
+    
+    "build": "cd client && npm install && npm run build",
+    "start": "npm run build && npm run server",
+    
     "test": "node test/test.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/jistjoalal/react-minesweeper.git"
+    "url": "git+https://github.com/jistjoalal/DarkSweeper.git"
   },
   "keywords": [
     "minesweeper"
@@ -17,9 +23,9 @@
   "author": "jistjoalal",
   "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.com/jistjoalal/react-minesweeper/issues"
+    "url": "https://github.com/jistjoalal/DarkSweeper/issues"
   },
-  "homepage": "https://gitlab.com/jistjoalal/react-minesweeper#readme",
+  "homepage": "https://github.com/jistjoalal/DarkSweeper#readme",
   "dependencies": {
     "express": "^4.16.4"
   }
