@@ -61,8 +61,9 @@ const GameInfo = ({ mines, flags, hidden, time }) =>
   
 
 // TODO
-// -fix bug: change size b4 game starts timer, need firstMoveMade state
-//  -maybe set the change size to scale automatically + start new game?
+// -bugs: 
+//  X-change size b4 game starts timer, need currentSize state
+//  -chrome: button outline and popup looks weird
 // -setting flag doesnt work on mobile now (highlights numbers)
 // -win/lose animation/sound?
 // -timer store minutes?
@@ -86,6 +87,7 @@ class Game extends Component {
       // grid
       nRows: 10,
       nCols: 10,
+      currentSize: {nRows: 10, nCols: 10},
       chance: 0.1,
       gridState: null,
       // info
@@ -139,19 +141,19 @@ class Game extends Component {
           
           <div>
             <input className="Game-input"
-              type="number" value={nCols} min={1}
+              type="number" value={nCols} min={1} max={100}
               onChange={e =>
                 this.setState({ nCols: parseInt(e.target.value)})
               }
               onKeyUp={e => this.submitSize(e)}/>
             x<input className="Game-input"
-              type="number" value={nRows} min={1}
+              type="number" value={nRows} min={1} max={100}
               onChange={e =>
                 this.setState({ nRows: parseInt(e.target.value)})
               }
               onKeyUp={e => this.submitSize(e)}/>
             x<input className="Game-input"
-              type="number" value={chance} min={0} step={0.01}
+              type="number" value={chance} min={0} max={1.0} step={0.01}
               onChange={e =>
                 this.setState({ chance: parseFloat(e.target.value)})
               }
@@ -200,7 +202,7 @@ class Game extends Component {
   }
   
   componentDidUpdate() {
-    const { totalHidden, totalMines,
+    const { totalHidden, totalMines, currentSize,
       nRows, nCols, gameStatus, gridState } = this.state;
     
     // new game = calculate nearby numbers, total mines, and reset game
@@ -230,6 +232,7 @@ class Game extends Component {
     if (totalHidden === totalMines) {
       // total mines is set to string to prevent infinite loop
       // and still appear the same
+      console.log(currentSize);
       this.setState({ gameStatus: 'Scoring',
       totalMines: totalMines.toString() });
       // reset grid for scoring
@@ -408,16 +411,22 @@ class Game extends Component {
   
   /*
     Game Config
-  */
+ */
   
   newGame = () => {
-    this.setState({gridState: this.newGridState(), gameStatus: 'New Game' });
+    const { nRows, nCols } = this.state; 
+    this.setState({
+      gridState: this.newGridState(), 
+      gameStatus: 'New Game',
+      currentSize: {nRows, nCols}
+    });
     clearInterval(this.timer);
     this.timer = setInterval(() => this.tick(), 1000);
   }
   
   tick = () => {
-    const { totalHidden, nRows, nCols, gameStatus } = this.state;
+    const { totalHidden, gameStatus, currentSize } = this.state;
+    const { nRows, nCols } = currentSize;
     if (totalHidden !== nRows * nCols && gameStatus === 'Playing') {
       this.setState({time: this.state.time + 1});
     }
