@@ -24,3 +24,31 @@ back-end to make it happen.
 to "solvability" calculations, which sounds fun! Scoring the board was a blast.
 - React is cool. AWS elastic beanstalk is cool. Managing state is the main
 challenge in React. Minesweeper is fun to program.
+
+## Download
+`git clone git@github.com:jistjoalal/DarkSweeper.git`
+
+## Development server
+```sh
+cd DarkSweeper/client
+npm install
+npm start
+```
+
+## Optimized build
+```sh
+cd Darksweeper/client
+npm install
+npm run build
+npm i -g serve
+serve -s build
+```
+
+## Back-end
+```sh
+cd Darksweeper
+npm install
+npm start
+```
+This is just a barebones express server serving up the build folder. I'm gonna
+use it to make the leaderboard, and maybe a few other routes.
