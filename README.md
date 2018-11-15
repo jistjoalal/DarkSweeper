@@ -25,7 +25,7 @@ to "solvability" calculations, which sounds fun! Scoring the board was a blast.
 - React is cool. AWS elastic beanstalk is cool. Managing state is the main
 challenge in React. Minesweeper is fun to program.
 
-## Download
+# Download
 `git clone git@github.com:jistjoalal/DarkSweeper.git`
 
 ## Development server
