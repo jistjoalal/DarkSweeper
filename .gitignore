@@ -1,6 +1,7 @@
 node_modules/
 .client/node_modules/
 elasticbeanstalk/
+env.txt
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
