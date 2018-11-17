@@ -1,7 +1,7 @@
 import React from 'react';
 
 // mines left, etc.
-const GameInfo = ({ mines, flags, hidden, time }) =>
+const GameInfo = ({ mines, hidden, time }) =>
   <div className="Game-info">
     <p>
       <span role="img" aria-label="bomb">💣</span> {mines}
