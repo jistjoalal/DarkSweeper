@@ -5,6 +5,7 @@ import './Game.scss';
 import { range } from './generic';
 import TileGrid from './TileGrid';
 import GameInfo from './GameInfo';
+import GameButtons from './GameButtons';
 import Popup from './Popup';
 import Hiscores from './Hiscores';
 
@@ -20,10 +21,7 @@ const NEARBY_COORDS = [
 // TODO: win/lose animation/sound?
 // TODO: timer store minutes?
 // TODO: refactor
-// TODO: switching b/w game + hiscores
-//
-// Bugs:
-//  TODO: chrome: button outline and popup looks weird
+// TODO: switching b/w game + hiscores / toggle button
 class Game extends Component {
   
   constructor(props) {
@@ -44,7 +42,7 @@ class Game extends Component {
       score: 0,
       // menu
       theme: 'dark',
-      xray: false,
+      xrayOn: false,
       infoOn: false,
       // internal
       ignoreNextClick: false,
@@ -55,36 +53,24 @@ class Game extends Component {
   render() {
     const { gameStatus, gridState, nRows, nCols, chance,
       totalMines, totalFlags, totalHidden,
-      xray, infoOn, theme, time, score, scoreSubmission } = this.state;
+      xrayOn, infoOn, theme, time, score, scoreSubmission } = this.state;
       
     return (
       <div className="Game">
-      
+
         <div className="Game-menu">
+
+          <GameButtons
+            newGame={this.newGame}
+            infoOn={infoOn}
+            xrayOn={xrayOn}
+            theme={theme}
+            toggleInfo={this.toggleInfo}
+            toggleXray={this.toggleXray}
+            toggleTheme={this.toggleTheme}
+          />
           
-          <div>
-          <button className="Game-button" onClick={this.newGame}>
-            New Game
-          </button>
-          
-          <button
-            className={`Game-button${infoOn ? ' toggle' : ''}`}
-            onClick={this.toggleInfo}
-          >Game Info
-          </button>
-          
-          <button 
-            className={`Game-button${xray ? ' toggle' : ''}`}
-            onClick={this.toggleXray}
-          >X-RAY
-          </button>
-          
-          <button className={`Game-button${theme === 'light' ? ' toggle' : ''}`}
-            onClick={this.toggleTheme}
-          >Theme
-          </button>
-          </div>
-          
+          {/** TODO: factor out GameInputs */}
           <div>
             <input className="Game-input"
               type="number" value={nCols} min={1} max={64}
@@ -99,14 +85,13 @@ class Game extends Component {
               onChange={this.onChanceChange}
               onKeyUp={this.submitSize}/>
           </div>
-          
         </div>
         
         <div className="Game-grid">
         
           <TileGrid
             gridState={gridState}
-            xray={xray}
+            xray={xrayOn}
             theme={theme}
             mouseDown={this.mouseDown}
             mouseUp={this.mouseUp}
@@ -183,99 +168,6 @@ class Game extends Component {
   
   componentWillUnmount() {
     clearInterval(this.timer);
-  }
-
-  // TODO: same for other size vars, pass to gamemenu component
-  onColChange = e => {
-    if (!isNaN(parseInt(e.target.value))) {
-      this.setState({ nCols: parseInt(e.target.value)})
-    }
-  }
-  onRowChange = e => {
-    if (!isNaN(parseInt(e.target.value))) {
-      this.setState({ nRows: parseInt(e.target.value)})
-    }
-  }
-  onChanceChange = e => {
-    if (!isNaN(parseInt(e.target.value))) {
-      this.setState({ chance: parseInt(e.target.value)})
-    }
-  }
-  
-  submitHiscore = e => {
-    e.preventDefault();
-    const name = e.target[0].value;
-    const { score, time } = this.state;
-    this.setState({scoreSubmission: {
-      name, score, time
-    }});
-    this.newGame();
-  }
-  
-  scoreGrid = () => {
-    const anyUB = this.anyUnrevealedBlank();
-    const anyUN = this.anyUnrevealedNumbers();
-    // if any unrevealed blank tile, reveal
-    if (anyUB) {
-      this.reveal(anyUB.i, anyUB.j);
-      return 1 + this.scoreGrid();
-    }
-    // else if any unrevealed numbers, reveal
-    else if (anyUN) {
-      this.reveal(anyUN.i, anyUN.j);
-      return 1 + this.scoreGrid();
-    }
-    // else save score
-    else {
-      return 0;
-    }
-  }
-  
-  anyUnrevealedNumbers = () => {
-    const { gridState } = this.state;
-    let any = false;
-    gridState.forEach((row, i) => {
-      row.forEach((tile, j) => {
-        if (!tile.isRevealed && !tile.hasMine) {
-          any = {i, j};
-        }
-      })
-    })
-    return any;
-  }
-  
-  anyUnrevealedBlank = () => {
-    const { gridState } = this.state;
-    let any = false;
-    gridState.forEach((row, i) => {
-      row.forEach((tile, j) => {
-        if (tile.nearby === 0 && !tile.isRevealed && !tile.hasMine) {
-          any = {i, j};
-        }
-      })
-    })
-    return any;
-  }
-  
-  resetGrid = () => {
-    this.everyTile((i, j) => 
-      this.changeTile(i, j, { isRevealed: false, flag: false }))
-  }
-  
-  // Grid State = 2d array of tile states
-  // - nearby is the # of nearby mines
-  newGridState = () => {
-    const { nRows, nCols, chance } = this.state;
-    return range(nRows).map(i => range(nCols).map(j => {
-      return {
-        isRevealed: false,
-        hasMine: Math.random() < chance,
-        nearby: 0,
-        flag: false,
-        isHighlighted: false,
-        xray: false
-      };
-    }));
   }
   
   /*
@@ -399,24 +291,118 @@ class Game extends Component {
   }
   
   toggleInfo = () => {
-    const { infoOn } = this.state;
-    this.setState({ infoOn: !infoOn });
+    this.setState({ infoOn: !this.state.infoOn });
   }
   
-  // see the path to victory!
   toggleXray = () => {
-    this.setState({ xray: !this.state.xray });
+    this.setState({ xrayOn: !this.state.xrayOn });
   }
-  
+
+  // Grid size
   submitSize = e => {
     if (!isNaN(e.target.value)) {
       this.newGame();
     }
   }
+  onColChange = e => {
+    if (!isNaN(parseInt(e.target.value))) {
+      this.setState({ nCols: parseInt(e.target.value)})
+    }
+  }
+  onRowChange = e => {
+    if (!isNaN(parseInt(e.target.value))) {
+      this.setState({ nRows: parseInt(e.target.value)})
+    }
+  }
+  onChanceChange = e => {
+    if (!isNaN(parseFloat(e.target.value))) {
+      this.setState({ chance: parseFloat(e.target.value)})
+    }
+  }
   
   /*
-    Meat
+    Scoring
   */
+  
+  submitHiscore = e => {
+    const name = e.target[0].value;
+    const { score, time } = this.state;
+    this.setState({scoreSubmission: {
+      name, score, time
+    }});
+    this.newGame();
+    e.preventDefault();
+  }
+  
+  scoreGrid = () => {
+    const anyUB = this.anyUnrevealedBlank();
+    const anyUN = this.anyUnrevealedNumbers();
+    // if any unrevealed blank tile, reveal
+    if (anyUB) {
+      this.reveal(anyUB.i, anyUB.j);
+      return 1 + this.scoreGrid();
+    }
+    // else if any unrevealed numbers, reveal
+    else if (anyUN) {
+      this.reveal(anyUN.i, anyUN.j);
+      return 1 + this.scoreGrid();
+    }
+    // else save score
+    else {
+      return 0;
+    }
+  }
+  
+  anyUnrevealedNumbers = () => {
+    const { gridState } = this.state;
+    let any = false;
+    gridState.forEach((row, i) => {
+      row.forEach((tile, j) => {
+        if (!tile.isRevealed && !tile.hasMine) {
+          any = {i, j};
+        }
+      })
+    })
+    return any;
+  }
+  
+  anyUnrevealedBlank = () => {
+    const { gridState } = this.state;
+    let any = false;
+    gridState.forEach((row, i) => {
+      row.forEach((tile, j) => {
+        if (tile.nearby === 0 && !tile.isRevealed && !tile.hasMine) {
+          any = {i, j};
+        }
+      })
+    })
+    return any;
+  }
+  
+  /*
+    Game
+  */
+  
+  // Grid State = 2d array of tile states
+  // - nearby is the # of nearby mines
+  newGridState = () => {
+    const { nRows, nCols, chance } = this.state;
+    return range(nRows).map(i => range(nCols).map(j => {
+      return {
+        isRevealed: false,
+        hasMine: Math.random() < chance,
+        nearby: 0,
+        flag: false,
+        isHighlighted: false,
+        xray: false
+      };
+    }));
+  }
+  
+  resetGrid = () => {
+    this.everyTile((i, j) => 
+      this.changeTile(i, j, { isRevealed: false, flag: false }))
+  }
   
   xrayArea = (i, j, toggle) => {
     this.changeTile(i, j, { xray: toggle });
