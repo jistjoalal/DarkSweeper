@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import logo from '../img/logo.svg';
 
-// TODO
-// X-add flag toggle
 class Tile extends Component {
   render() {
     const { isRevealed, hasMine, nearby, flag,

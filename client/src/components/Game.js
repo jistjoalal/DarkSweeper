@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 
 import './Game.scss';
 
+import { range } from './generic';
 import TileGrid from './TileGrid';
-import HiddenToggle from './HiddenToggle';
+import GameInfo from './GameInfo';
+import Popup from './Popup';
 import Hiscores from './Hiscores';
 
 // adjacent tiles
@@ -12,75 +14,16 @@ const NEARBY_COORDS = [
   [-1, 0], /*[0, 0],*/ [1,0],
   [-1, 1], [0, 1], [1,1]
 ];
-// number range helper
-const range = n => [...Array(n).keys()];
-// popup message
-const Popup = props =>
-    <HiddenToggle show={props.show}>
-      <div className="Popup" onContextMenu={e => e.preventDefault()}>
-        <div className="Popup-inner">
-          <p>{props.text}</p>
-          
-          {props.text === 'Winner!' ?
-            <div className="Popup-score">
-              <p>
-                Difficulty: {props.score} | Time: {props.time}
-              </p>
-              <form onSubmit={e => props.submitHiscore(e)}>
-                <input autoFocus className="Popup-name" type="text" placeholder="Name" />
-                <input className="Popup-submit" type="submit" value="Submit" />
-              </form>
-            </div>
-          : null}
-          
-          <button className="close" onClick={props.closePopup}>Back</button>
-        </div>
-      </div>
-    </HiddenToggle>;
-// mines left, etc.
-const GameInfo = ({ mines, flags, hidden, time }) =>
-  <div className="Game-info">
-    <p>
-      <span role="img" aria-label="bomb">💣</span> {mines}
-      <span role="img" aria-label="question"> ❓</span> {hidden}
-      <span role="img" aria-label="timer"> ⏱</span> {time}
-    </p>
-    <p>
-      <span role="img" aria-label="ok">👌 </span>
-      Click around with right+left click for a safe start!
-    </p>
-    <p>
-      <span role="img" aria-label="score">💯 </span>
-      <a href="http://www.minesweeper.info/wiki/3BV" target="blank">
-        Difficulty = minimum # of left clicks to win
-      </a>
-    </p>
-    <p>
-      <span role="img" aria-label="radioactive">☢ </span>
-      Use middle click to xray (cheat) the area.
-    </p>
-  </div>;
   
 
-// TODO
-// -bugs: 
-//  X-change size b4 game starts timer, need currentSize state
-//  -chrome: button outline and popup looks weird
-// -setting flag doesnt work on mobile now (highlights numbers)
-// -win/lose animation/sound?
-// -timer store minutes?
-// -refactor
-// X-score based on 3BV
-// X-timer
-// X-adjust color theme w/ button
-// X-adjust size + chance
-// X-handle simultaneous click
-// X-remove style logic!
-// X-win
-// X-mines left
-// X-manage state correctly
-// X-handle right click
-// X-game over
+// TODO: setting flag doesnt work on mobile now (highlights numbers)
+// TODO: win/lose animation/sound?
+// TODO: timer store minutes?
+// TODO: refactor
+// TODO: switching b/w game + hiscores
+//
+// Bugs:
+//  TODO: chrome: button outline and popup looks weird
 class Game extends Component {
   
   constructor(props) {
@@ -144,23 +87,17 @@ class Game extends Component {
           
           <div>
             <input className="Game-input"
-              type="number" value={nCols} min={1} max={100}
-              onChange={e =>
-                this.setState({ nCols: parseInt(e.target.value)})
-              }
-              onKeyUp={e => this.submitSize(e)}/>
+              type="number" value={nCols} min={1} max={64}
+              onChange={this.onColChange}
+              onKeyUp={this.submitSize}/>
             x<input className="Game-input"
-              type="number" value={nRows} min={1} max={100}
-              onChange={e =>
-                this.setState({ nRows: parseInt(e.target.value)})
-              }
-              onKeyUp={e => this.submitSize(e)}/>
+              type="number" value={nRows} min={1} max={64}
+              onChange={this.onRowChange}
+              onKeyUp={this.submitSize}/>
             x<input className="Game-input"
               type="number" value={chance} min={0} max={1.0} step={0.01}
-              onChange={e =>
-                this.setState({ chance: parseFloat(e.target.value)})
-              }
-              onKeyUp={e => this.submitSize(e)}/>
+              onChange={this.onChanceChange}
+              onKeyUp={this.submitSize}/>
           </div>
           
         </div>
@@ -194,22 +131,12 @@ class Game extends Component {
     );
   }
   
-  submitHiscore = e => {
-    e.preventDefault();
-    const name = e.target[0].value;
-    const { score, time } = this.state;
-    this.setState({scoreSubmission: {
-      name, score, time
-    }});
-    this.newGame();
-  }
-  
   componentDidMount() {
     this.newGame();
   }
   
   componentDidUpdate() {
-    const { totalHidden, totalMines, currentSize,
+    const { totalHidden, totalMines,
       nRows, nCols, gameStatus, gridState } = this.state;
     
     // new game = calculate nearby numbers, total mines, and reset game
@@ -252,6 +179,37 @@ class Game extends Component {
         score: this.scoreGrid()
       });
     }
+  }
+  
+  componentWillUnmount() {
+    clearInterval(this.timer);
+  }
+
+  // TODO: same for other size vars, pass to gamemenu component
+  onColChange = e => {
+    if (!isNaN(parseInt(e.target.value))) {
+      this.setState({ nCols: parseInt(e.target.value)})
+    }
+  }
+  onRowChange = e => {
+    if (!isNaN(parseInt(e.target.value))) {
+      this.setState({ nRows: parseInt(e.target.value)})
+    }
+  }
+  onChanceChange = e => {
+    if (!isNaN(parseInt(e.target.value))) {
+      this.setState({ chance: parseInt(e.target.value)})
+    }
+  }
+  
+  submitHiscore = e => {
+    e.preventDefault();
+    const name = e.target[0].value;
+    const { score, time } = this.state;
+    this.setState({scoreSubmission: {
+      name, score, time
+    }});
+    this.newGame();
   }
   
   scoreGrid = () => {
@@ -302,10 +260,6 @@ class Game extends Component {
   resetGrid = () => {
     this.everyTile((i, j) => 
       this.changeTile(i, j, { isRevealed: false, flag: false }))
-  }
-  
-  componentWillUnmount() {
-    clearInterval(this.timer);
   }
   
   // Grid State = 2d array of tile states
@@ -455,8 +409,7 @@ class Game extends Component {
   }
   
   submitSize = e => {
-    if (e.key === 'Enter') {
-      e.target.blur();
+    if (!isNaN(e.target.value)) {
       this.newGame();
     }
   }

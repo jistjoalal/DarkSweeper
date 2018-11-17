@@ -24,6 +24,11 @@ const addHiscoreMutation = gql`
   }
 `;
 
+// TODO: sort by (score / time) somehow
+// TODO: factor out AddHiscore function
+//  - then lift into Game component
+// TODO: pagination
+// TODO: scores by date (last day, week, etc.)
 class Hiscores extends Component {
 
   constructor(props) {
