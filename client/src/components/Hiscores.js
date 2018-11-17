@@ -58,10 +58,14 @@ class Hiscores extends Component {
 
   displayHiscores = () => {
     const data = this.props.getHiscoresQuery;
+    console.log(data);
     if (data.loading) {
       return <li>Loading Hiscores...</li>;
     }
     else {
+      if (!data.hiscores) {
+        return <li>Couldn't connect to DB</li>
+      }
       return data.hiscores.map(hiscore => {
         return <Hiscore key={hiscore.id} {...hiscore} />
       })
