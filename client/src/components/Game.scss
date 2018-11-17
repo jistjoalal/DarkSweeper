@@ -46,7 +46,8 @@ input[type="number"] {
 
 #root {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 /*
@@ -54,7 +55,6 @@ input[type="number"] {
 */
 
 .Game {
-    width: 100%;
     box-shadow: 2px 5px 20px $dark-shadow;
     color: $light;
     background: $dark;

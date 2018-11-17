@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Game from './components/Game';
+import App from './App';
 
-ReactDOM.render(<Game />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 
 if (module.hot) {
     module.hot.accept();

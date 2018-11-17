@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 
+import './Game.scss';
+
 import TileGrid from './TileGrid';
 import HiddenToggle from './HiddenToggle';
-import './Game.scss';
+import Hiscores from './Hiscores';
 
 // adjacent tiles
 const NEARBY_COORDS = [
@@ -102,14 +104,15 @@ class Game extends Component {
       xray: false,
       infoOn: false,
       // internal
-      ignoreNextClick: false
+      ignoreNextClick: false,
+      scoreSubmission: null
     };
   }
   
   render() {
     const { gameStatus, gridState, nRows, nCols, chance,
       totalMines, totalFlags, totalHidden,
-      xray, infoOn, theme, time, score } = this.state;
+      xray, infoOn, theme, time, score, scoreSubmission } = this.state;
       
     return (
       <div className="Game">
@@ -184,6 +187,8 @@ class Game extends Component {
         <GameInfo
           mines={totalMines} flags={totalFlags} hidden={totalHidden} time={time}
         /> : null}
+
+        <Hiscores scoreSubmission={scoreSubmission} />
         
       </div>
     );
@@ -193,7 +198,9 @@ class Game extends Component {
     e.preventDefault();
     const name = e.target[0].value;
     const { score, time } = this.state;
-    console.log(name, score, time);
+    this.setState({scoreSubmission: {
+      name, score, time
+    }});
     this.newGame();
   }
   
@@ -232,7 +239,6 @@ class Game extends Component {
     if (totalHidden === totalMines) {
       // total mines is set to string to prevent infinite loop
       // and still appear the same
-      console.log(currentSize);
       this.setState({ gameStatus: 'Scoring',
       totalMines: totalMines.toString() });
       // reset grid for scoring
