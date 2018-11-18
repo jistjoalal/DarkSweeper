@@ -26,8 +26,6 @@ const addHiscoreMutation = gql`
   }
 `;
 
-// TODO: pagination
-// TODO: scores by date (last day, week, etc.)
 class Hiscores extends Component {
 
   constructor(props) {
@@ -49,7 +47,7 @@ class Hiscores extends Component {
   render() {
     return (
       <div className="HiscoreView">
-        <h2>Hiscores:</h2>
+        <h2>Top 10:</h2>
         <div className="Hiscores">
           {this.displayHiscores()}
         </div>
@@ -72,13 +70,9 @@ class Hiscores extends Component {
     }
   }
 
-  // TODO: better than alert popup
   submitHiscore = () => {
     const { scoreSubmission } = this.props;
-    if (scoreSubmission.name.length < 1) {
-      //alert("name can't be blank");
-      return;
-    }
+    if (scoreSubmission.name.length < 1) { return; }
     this.props.addHiscoreMutation({
       variables: { ...scoreSubmission },
       refetchQueries: [{ query: getHiscoresQuery }],

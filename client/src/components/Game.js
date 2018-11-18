@@ -21,8 +21,6 @@ const NEARBY_COORDS = [
 // TODO: win/lose animation/sound?
 // TODO: timer store minutes?
 // TODO: refactor
-// TODO: switching b/w game + hiscores / toggle button
-// TODO: forfeit hiscore if xray used
 class Game extends Component {
   
   constructor(props) {
@@ -31,7 +29,6 @@ class Game extends Component {
       // grid
       nRows: 10,
       nCols: 10,
-      currentSize: {nRows: 10, nCols: 10},
       chance: 0.1,
       gridState: null,
       // info
@@ -47,14 +44,17 @@ class Game extends Component {
       infoOn: false,
       // internal
       ignoreNextClick: false,
-      scoreSubmission: null
+      scoreSubmission: null,
+      xrayUsed: false,
     };
   }
   
   render() {
     const { gameStatus, gridState, nRows, nCols, chance,
       totalMines, totalFlags, totalHidden,
-      xrayOn, infoOn, theme, time, score, scoreSubmission } = this.state;
+      xrayOn, infoOn, theme, time, score, scoreSubmission,
+      xrayUsed,
+    } = this.state;
       
     return (
       <div className="Game">
@@ -102,7 +102,7 @@ class Game extends Component {
           
           <Popup show={gameStatus !== 'Playing'} text={gameStatus}
             submitHiscore={this.submitHiscore} score={score} time={time}
-            closePopup={this.newGame}/>
+            closePopup={this.newGame} xrayUsed={xrayUsed}/>
           
         </div>
         
@@ -267,19 +267,17 @@ class Game extends Component {
  */
   
   newGame = () => {
-    const { nRows, nCols } = this.state; 
     this.setState({
       gridState: this.newGridState(), 
       gameStatus: 'New Game',
-      currentSize: {nRows, nCols}
+      xrayUsed: false
     });
     clearInterval(this.timer);
     this.timer = setInterval(() => this.tick(), 1000);
   }
   
   tick = () => {
-    const { totalHidden, gameStatus, currentSize } = this.state;
-    const { nRows, nCols } = currentSize;
+    const { totalHidden, gameStatus, nRows, nCols } = this.state;
     if (totalHidden !== nRows * nCols && gameStatus === 'Playing') {
       this.setState({time: this.state.time + 1});
     }
@@ -296,7 +294,10 @@ class Game extends Component {
   }
   
   toggleXray = () => {
-    this.setState({ xrayOn: !this.state.xrayOn });
+    this.setState({
+      xrayOn: !this.state.xrayOn,
+      xrayUsed: true,
+    });
   }
 
   // Grid size
@@ -410,7 +411,8 @@ class Game extends Component {
     this.changeTile(i, j, { xray: toggle });
     this.eachNearby(i, j, (ix, jy) => {
       this.changeTile(ix, jy, { xray: toggle });
-    })
+    });
+    this.setState({ xrayUsed: true });
   }
   
   highlightArea = (i, j, toggle) => {

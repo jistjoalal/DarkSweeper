@@ -14,7 +14,9 @@ const Popup = props =>
             <p>
               Difficulty: {props.score} | Time: {props.time}
             </p>
-            {props.time < 5 ? null
+
+            {/* only record games > 5 seconds long & no cheaters! */
+            ( props.time < 5 || props.xrayUsed ) ? null
             : <form onSubmit={e => props.submitHiscore(e)}>
                 <input autoFocus className="Popup-name" type="text" placeholder="Name" />
                 <input className="Popup-submit" type="submit" value="Submit" />
