@@ -17,9 +17,7 @@ const NEARBY_COORDS = [
 ];
   
 
-// TODO: setting flag doesnt work on mobile now (highlights numbers)
 // TODO: win/lose animation/sound?
-// TODO: timer store minutes?
 // TODO: refactor
 class Game extends Component {
   
@@ -98,6 +96,7 @@ class Game extends Component {
             mouseUp={this.mouseUp}
             mouseEnter={this.mouseEnter}
             mouseLeave={this.mouseLeave}
+            handleTouch={this.handleTouch}
           />
           
           <Popup show={gameStatus !== 'Playing'} text={gameStatus}
@@ -172,8 +171,15 @@ class Game extends Component {
   }
   
   /*
-    Mouse
+    Mouse / Touch
   */
+
+  // 2nd touch point sets flag
+  handleTouch = (e, i, j) => {
+    if (e.changedTouches[0].identifier === 1) {
+      this.handleRightClick(i, j);
+    }
+  }
   
   mouseEnter = (e, i, j) => {
     const { gameStatus } = this.state;
@@ -206,6 +212,7 @@ class Game extends Component {
   
   mouseUp = (e, i, j) => {
     const { ignoreNextClick, gridState } = this.state;
+
     // "both" up
     if ([1,2].includes(e.buttons)) {
       this.setState({ ignoreNextClick: true });
@@ -224,12 +231,13 @@ class Game extends Component {
     }
     // middle up
     if (e.button === 1) { this.xrayArea(i, j, false); }
+    // right up
+    else if (e.button === 2 && !ignoreNextClick) {
+      this.handleRightClick(i, j);
+    }
     // left up
     else if (e.button === 0 && !ignoreNextClick) {
       this.handleClick(i, j);
-    }// right up
-    else if (e.button === 2 && !ignoreNextClick) {
-      this.handleRightClick(i, j);
     }
     this.setState({ ignoreNextClick: false });
   }
@@ -250,7 +258,6 @@ class Game extends Component {
   handleRightClick = (i, j) => {
     const { gridState, gameStatus, totalFlags } = this.state;
     const { isRevealed, flag } = gridState[i][j];
-   
     // ignore clicks if game is over or tile revealed
     if (gameStatus !== 'Playing' || isRevealed) { return; }
     

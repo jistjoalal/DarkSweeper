@@ -5,7 +5,7 @@ import logo from '../img/logo.svg';
 class Tile extends Component {
   render() {
     const { isRevealed, hasMine, nearby, flag,
-      onMouseDown, onMouseUp, onMouseEnter, onMouseLeave,
+      onMouseDown, onMouseUp, onMouseEnter, onMouseLeave, handleTouch,
       xray, theme } = this.props;
     
     return (
@@ -14,6 +14,7 @@ class Tile extends Component {
         onMouseUp={onMouseUp}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
+        onTouchEnd={handleTouch}
         onContextMenu={e => e.preventDefault()}
       >
         <Over isRevealed={isRevealed} flag={flag} xray={xray} theme={theme}>

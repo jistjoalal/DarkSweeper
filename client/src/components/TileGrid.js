@@ -36,6 +36,7 @@ class TileGrid extends Component {
       onMouseUp={e => this.props.mouseUp(e, i, j)}
       onMouseEnter={e => this.props.mouseEnter(e, i, j)}
       onMouseLeave={e => this.props.mouseLeave(e, i, j)}
+      handleTouch={e => this.props.handleTouch(e, i, j)}
     />;
   }
 }
