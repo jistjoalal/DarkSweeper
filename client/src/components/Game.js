@@ -6,6 +6,7 @@ import { range } from './generic';
 import TileGrid from './TileGrid';
 import GameInfo from './GameInfo';
 import GameButtons from './GameButtons';
+import GameInputs from './GameInputs';
 import Popup from './Popup';
 import Hiscores from './Hiscores';
 
@@ -19,6 +20,7 @@ const NEARBY_COORDS = [
 
 // TODO: win/lose animation/sound?
 // TODO: refactor
+// TODO: link to github
 class Game extends Component {
   
   constructor(props) {
@@ -56,9 +58,7 @@ class Game extends Component {
       
     return (
       <div className="Game">
-
         <div className="Game-menu">
-
           <GameButtons
             newGame={this.newGame}
             infoOn={infoOn}
@@ -69,25 +69,18 @@ class Game extends Component {
             toggleTheme={this.toggleTheme}
           />
           
-          {/** TODO: factor out GameInputs */}
-          <div>
-            <input className="Game-input"
-              type="number" value={nCols} min={1} max={64}
-              onChange={this.onColChange}
-              onKeyUp={this.submitSize}/>
-            x<input className="Game-input"
-              type="number" value={nRows} min={1} max={64}
-              onChange={this.onRowChange}
-              onKeyUp={this.submitSize}/>
-            x<input className="Game-input"
-              type="number" value={chance} min={0} max={1.0} step={0.01}
-              onChange={this.onChanceChange}
-              onKeyUp={this.submitSize}/>
-          </div>
+          <GameInputs
+            nCols={nCols}
+            nRows={nRows}
+            chance={chance}
+            onColChange={this.onColChange}
+            onRowChange={this.onRowChange}
+            onChanceChange={this.onChanceChange}
+            submitSize={this.submitSize}
+          />
         </div>
         
         <div className="Game-grid">
-        
           <TileGrid
             gridState={gridState}
             xray={xrayOn}
@@ -99,10 +92,15 @@ class Game extends Component {
             handleTouch={this.handleTouch}
           />
           
-          <Popup show={gameStatus !== 'Playing'} text={gameStatus}
-            submitHiscore={this.submitHiscore} score={score} time={time}
-            closePopup={this.newGame} xrayUsed={xrayUsed}/>
-          
+          <Popup
+            text={gameStatus}
+            xrayUsed={xrayUsed}
+            score={score}
+            time={time}
+            submitHiscore={this.submitHiscore}
+            closePopup={this.newGame}
+            show={gameStatus !== 'Playing'}
+          />
         </div>
         
         {infoOn ?
