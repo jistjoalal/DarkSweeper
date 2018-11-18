@@ -14,10 +14,12 @@ const Popup = props =>
             <p>
               Difficulty: {props.score} | Time: {props.time}
             </p>
-            <form onSubmit={e => props.submitHiscore(e)}>
-              <input autoFocus className="Popup-name" type="text" placeholder="Name" />
-              <input className="Popup-submit" type="submit" value="Submit" />
-            </form>
+            {props.time < 5 ? null
+            : <form onSubmit={e => props.submitHiscore(e)}>
+                <input autoFocus className="Popup-name" type="text" placeholder="Name" />
+                <input className="Popup-submit" type="submit" value="Submit" />
+              </form>
+            }
           </div>
         : null}
         

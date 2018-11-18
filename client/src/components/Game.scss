@@ -35,7 +35,8 @@ button, button::-moz-focus-inner {
 }
 
 /* Hide HTML5 Up and Down arrows. */
-input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
@@ -115,6 +116,34 @@ input[type="number"] {
             top: 1px;
             background: $light;
         }
+    }
+    .HiscoreView {
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .Hiscores {
+        border: 1px solid $light-shadow;
+        box-shadow: 0 1px 0 $dark-shadow;
+        width: 100%;
+        .Hiscore {
+          list-style: none;
+          display: flex;
+          span {
+            flex: 1;
+          }
+
+          &:nth-child(1) {
+            color: gold;
+            text-shadow: 0 0 3px $light-shadow;
+          }
+
+          &:nth-child(even) {
+            color: black;
+            background: $light-shadow;
+          }
+        }
+      }
     }
 }
 

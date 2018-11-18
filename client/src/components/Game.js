@@ -22,6 +22,7 @@ const NEARBY_COORDS = [
 // TODO: timer store minutes?
 // TODO: refactor
 // TODO: switching b/w game + hiscores / toggle button
+// TODO: forfeit hiscore if xray used
 class Game extends Component {
   
   constructor(props) {
@@ -328,7 +329,8 @@ class Game extends Component {
     const name = e.target[0].value;
     const { score, time } = this.state;
     this.setState({scoreSubmission: {
-      name, score, time
+      name, score, time,
+      speed: (score / time)
     }});
     this.newGame();
     e.preventDefault();

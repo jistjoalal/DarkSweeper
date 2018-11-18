@@ -5,7 +5,7 @@ minesweeper with a dark theme and other cool features!
 ![demo](https://i.gyazo.com/5f357692c2dae9806ea7e882a867847c.png)
 ](http://darksweeper.com)
 
-
+//TODO: update after hiscores done
 
 - original simultaneous click to clear, guaranteed safe start
 - any size grid

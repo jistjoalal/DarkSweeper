@@ -9,22 +9,23 @@ const getHiscoresQuery = gql`
       name
       score
       time
+      speed
     }
   }
 `;
 
 const addHiscoreMutation = gql`
-  mutation($name: String!, $score: Int!, $time: Int!){
-    addHiscore(name: $name, score: $score, time: $time){
+  mutation($name: String!, $score: Int!, $time: Int!, $speed: Float!){
+    addHiscore(name: $name, score: $score, time: $time, speed: $speed){
       id
       name
       score
       time
+      speed
     }
   }
 `;
 
-// TODO: sort by (score / time) somehow
 // TODO: pagination
 // TODO: scores by date (last day, week, etc.)
 class Hiscores extends Component {
@@ -49,16 +50,15 @@ class Hiscores extends Component {
     return (
       <div className="HiscoreView">
         <h2>Hiscores:</h2>
-        <ul className="Hiscores">
+        <div className="Hiscores">
           {this.displayHiscores()}
-        </ul>
+        </div>
       </div>
     )
   }
 
   displayHiscores = () => {
     const data = this.props.getHiscoresQuery;
-    console.log(data);
     if (data.loading) {
       return <li>Loading Hiscores...</li>;
     }
@@ -72,10 +72,11 @@ class Hiscores extends Component {
     }
   }
 
+  // TODO: better than alert popup
   submitHiscore = () => {
     const { scoreSubmission } = this.props;
-    if (scoreSubmission.score < 2){
-      alert('score too low to submit :(');
+    if (scoreSubmission.name.length < 1) {
+      //alert("name can't be blank");
       return;
     }
     this.props.addHiscoreMutation({
@@ -85,9 +86,10 @@ class Hiscores extends Component {
   }
 }
 
-const Hiscore = ({ name, score, time, id }) =>
+const Hiscore = ({ name, score, time }) =>
   <li className="Hiscore">
-    {name} | {score} | {time}
+    <span>{name}</span>
+    <span>{score} / {time}</span>
   </li>
 
 export default compose(
