@@ -2,6 +2,7 @@
 minesweeper with a dark theme and other cool features!
 
 Play Darksweeper:
+
 [![demo](https://i.gyazo.com/5f357692c2dae9806ea7e882a867847c.png)
 ](http://darksweeper.com)
 
