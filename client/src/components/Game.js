@@ -143,7 +143,8 @@ class Game extends Component {
     if (gameStatus === 'Calculating') {
       this.setState({
         totalHidden: this.gridReduce((i, j) =>
-          gridState[i][j].isRevealed ? 0 : 1),
+          gridState[i][j].isRevealed ? 0 : 1
+        ),
         gameStatus: 'Playing'
       });
     }

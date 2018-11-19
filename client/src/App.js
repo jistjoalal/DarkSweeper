@@ -4,10 +4,12 @@ import { ApolloProvider } from 'react-apollo';
 
 import Game from './components/Game';
 
-const PORT = process.env.PORT || 3001;
-const HOST = process.env.HOST || 'http://localhost';
+// TODO: production port doesn't work?
+// const PORT = process.env.PORT || 3001;
+// const HOST = process.env.HOST || 'http://localhost';
+// console.log(PORT, HOST);
 const client = new ApolloClient({
-  uri: `${HOST}:${PORT}/graphql`
+  uri: `http://localhost:8081/graphql`
 })
 
 class App extends Component {
