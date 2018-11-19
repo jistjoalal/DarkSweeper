@@ -49,6 +49,10 @@ class Hiscores extends Component {
       <div className="HiscoreView">
         <h2>Top 10:</h2>
         <div className="Hiscores">
+          <li className="Hiscore">
+            <span className="HiscoreHeader">Name</span>
+            <span className="HiscoreHeader">EBV / s</span>
+          </li>
           {this.displayHiscores()}
         </div>
       </div>
