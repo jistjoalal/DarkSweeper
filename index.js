@@ -31,7 +31,8 @@ mongoose.connection.once('open', () => {
 const schema = require('./schema');
 app.use('/graphql', graphqlHTTP({
   schema,
-  graphiql: true
+  // disable graphiql in prod
+  graphiql: port === 3001
 }))
 
 // run express server
