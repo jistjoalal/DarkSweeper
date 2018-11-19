@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Tile from './Tile';
 
-const range = n => [...Array(n).keys()];
+import { range } from './generic';
 
 class TileGrid extends Component {
   

@@ -56,96 +56,104 @@ input[type="number"] {
 */
 
 .Game {
-    box-shadow: 2px 5px 20px $dark-shadow;
-    color: $light;
-    background: $dark;
-    text-align: center;
-    padding: 20px;
-    .Game-grid {
-        margin-top: 10px;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        user-select: none;
-        .Game-grid-row {
-            display: flex;
-        }
-    }
-    .Game-info {
-        font-family: 'Montserrat', sans-serif;
-    }
-    .Game-menu {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-        h1 {
-            margin: 10px 0;
-            color: $light;
-        }
-        .Game-input {
-            font-family: inherit;
-            border: none;
-            box-shadow: 0 0 2px 2px $light-shadow;
-            text-align: center;
-            width: 4rem;
-            font-size: 1rem;
-            font-weight: bold;
-            background: $light-shadow;
-            color: $dark;
-            padding: 5px 0;
-            margin: 10px 10px 0 10px;
-        }
-        .Game-input:focus {
-            background: $light;
-            color: $dark;
-        }
-        .Game-button {
-            outline: none;
-            font-family: inherit;
-            position: relative;
-            font-weight: bold;
-            padding: 10px 20px;
-            margin: 10px;
-            color: $dark;
-            background: $light-shadow;
-            box-shadow: 0 1px 0 $dark-shadow;
-            border-radius: 10px;
-        }
-        .Game-button:active, .toggle {
-            box-shadow: 0 0 0;
-            top: 1px;
-            background: $light;
-        }
-    }
-    .HiscoreView {
-      font-family: 'Montserrat', sans-serif;
+  box-shadow: 2px 5px 20px $dark-shadow;
+  color: $light;
+  background: $dark;
+  text-align: center;
+  padding: 20px;
+  .Game-grid {
+      margin-top: 10px;
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: center;
-      .Hiscores {
-        border: 1px solid $light-shadow;
+      user-select: none;
+      .Game-grid-row {
+        display: flex;
+      }
+  }
+  .Game-info {
+    font-family: 'Montserrat', sans-serif;
+  }
+  .Game-menu {
+      display: flex;
+      flex-direction: column;
+      h1 {
+        margin: 10px 0;
+        color: $light;
+      }
+      .Game-input {
+        font-family: inherit;
+        border: none;
+        box-shadow: 0 0 2px 2px $light-shadow;
+        text-align: center;
+        font-size: 1rem;
+        width: 2rem;
+        font-weight: bold;
+        background: $light-shadow;
+        color: $dark;
+        padding: 8px 20px;
+        margin: 10px;
+      }
+      .Game-input:focus {
+        background: $light;
+        color: $dark;
+      }
+      .Game-button {
+        outline: none;
+        font-family: inherit;
+        position: relative;
+        font-weight: bold;
+        padding: 10px 20px;
+        margin: 10px;
+        color: $dark;
+        background: $light-shadow;
         box-shadow: 0 1px 0 $dark-shadow;
-        width: 100%;
-        .Hiscore {
-          list-style: none;
-          display: flex;
-          span {
-            flex: 1;
-          }
+        border-radius: 10px;
+      }
+      .Game-button:active, .toggle {
+        box-shadow: 0 0 0;
+        top: 1px;
+        background: $light;
+      }
+  }
+  .HiscoreView {
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .Hiscores {
+      border: 1px solid $light-shadow;
+      box-shadow: 0 1px 0 $dark-shadow;
+      width: 100%;
+      .Hiscore {
+        list-style: none;
+        display: flex;
+        span {
+          flex: 1;
+        }
 
-          &:nth-child(1) {
-            color: gold;
-            text-shadow: 0 0 3px $light-shadow;
-          }
+        &:nth-child(1) {
+          color: gold;
+          text-shadow: 0 0 3px $light-shadow;
+        }
 
-          &:nth-child(even) {
-            color: black;
-            background: $light-shadow;
-          }
+        &:nth-child(even) {
+          color: black;
+          background: $light-shadow;
         }
       }
     }
+  }
+  footer {
+    margin-top: 30px;
+    a {
+      color: $light;
+      padding: 5px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+  }
 }
 
 

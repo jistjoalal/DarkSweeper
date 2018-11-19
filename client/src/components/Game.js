@@ -18,9 +18,7 @@ const NEARBY_COORDS = [
 ];
   
 
-// TODO: win/lose animation/sound?
 // TODO: refactor
-// TODO: link to github
 class Game extends Component {
   
   constructor(props) {
@@ -110,6 +108,11 @@ class Game extends Component {
 
         <Hiscores scoreSubmission={scoreSubmission} />
         
+        <footer>
+          <a href="https://github.com/jistjoalal/DarkSweeper">
+            <i className="fa fa-2x fa-github"></i>
+          </a>
+        </footer>
       </div>
     );
   }

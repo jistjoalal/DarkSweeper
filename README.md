@@ -1,33 +1,25 @@
 # Darksweeper
 minesweeper with a dark theme and other cool features!
 
-[Play Darksweeper!
-![demo](https://i.gyazo.com/5f357692c2dae9806ea7e882a867847c.png)
+Play Darksweeper:
+[![demo](https://i.gyazo.com/5f357692c2dae9806ea7e882a867847c.png)
 ](http://darksweeper.com)
-
-//TODO: update after hiscores done
 
 - original simultaneous click to clear, guaranteed safe start
 - any size grid
 - RNG mines
 - x-ray vision for when you don't want to guess or just want to cheat
 - [3BV](http://www.minesweeper.info/wiki/3BV) Scoring
+- Top 10 Leaderboard
 
 ## Why?
 I like minesweeper but I also like my eyes. And because I hate guessing and
 wanted the power to xray the board. And to learn how to use React!
 
-## More ideas / takeaways
-- I really want a leaderboard. I'm inching my way towards knowing enough
-back-end to make it happen.
-- "Hint" button which searches the board for suggested moves. This could lead
-to "solvability" calculations, which sounds fun! Scoring the board was a blast.
-- React is cool. AWS elastic beanstalk is cool. Managing state is the main
-challenge in React. Minesweeper is fun to program.
-
 # Download
-`git clone git@github.com:jistjoalal/DarkSweeper.git`
-
+```
+git clone git@github.com:jistjoalal/DarkSweeper.git
+```
 ## Development server
 ```sh
 cd DarkSweeper/client
@@ -50,5 +42,19 @@ cd Darksweeper
 npm install
 npm start
 ```
-This is just a barebones express server serving up the build folder. I'm gonna
-use it to make the leaderboard, and maybe a few other routes.
+This is an express server that connects to a MongoDB instance in the cloud,
+serves the create-react-app build directory, and connects the two using GraphQL
+and Apollo.
+
+## Deploy Sequence
+```sh
+npm run build
+git add -A
+git commit -m "deploy changes"
+eb deploy
+```
+Server hosted on AWS Elastic Beanstalk. The DB is hosted on [mLab](https://mlab.com/).
+Connect with environment variable on AWS:
+```
+eb setenv DS_DB_URL=mongodb://<dbuser>:<dbpass>@url:port/database
+```
