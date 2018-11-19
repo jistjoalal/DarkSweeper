@@ -21,10 +21,8 @@ if (!DS_DB_URL) {
   console.log('DS_DB_URL not set');
   process.exit();
 }
-// PORT default to 8081 to simulate production environment
-// - my best fix atm, b/c I don't know how to pass the uri dynamically to the
-//   apollo client.
-const port = PORT || 8081;
+
+const port = PORT || 3001;
 
 // attempt connect to DB
 mongoose.connect(DS_DB_URL, {useNewUrlParser: true});
