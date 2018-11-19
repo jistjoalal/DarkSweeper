@@ -6,11 +6,11 @@ const GameInputs = ({ nCols, nRows, chance,
 }) =>
   <div>
     <input className="Game-input"
-      type="number" value={nCols} min={1} max={64}
+      type="number" value={nCols} min={1} max={32}
       onChange={onColChange}
       onKeyUp={submitSize}/>
     x<input className="Game-input"
-      type="number" value={nRows} min={1} max={64}
+      type="number" value={nRows} min={1} max={32}
       onChange={onRowChange}
       onKeyUp={submitSize}/>
     x<input className="Game-input"

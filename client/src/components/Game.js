@@ -19,6 +19,7 @@ const NEARBY_COORDS = [
   
 
 // TODO: refactor
+// TODO: better performance? bigger grids?
 class Game extends Component {
   
   constructor(props) {
