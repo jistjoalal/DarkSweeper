@@ -3,10 +3,6 @@ const app = express();
 const path = require('path');
 const graphqlHTTP = require('express-graphql');
 const mongoose = require('mongoose');
-const cors = require('cors');
-
-// allow X origin requests
-app.use(cors());
 
 // serve client build as root
 app.use(express.static(path.join(__dirname, 'client/build')));
