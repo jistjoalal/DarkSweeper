@@ -11,6 +11,7 @@ const client = new ApolloClient({
   uri
 })
 
+// TODO: hiscores page with sorting and pagination (just to view)
 class App extends Component {
   
   render() {

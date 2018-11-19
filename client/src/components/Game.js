@@ -151,7 +151,10 @@ class Game extends Component {
     }
     
     // win condition
-    if (totalHidden === totalMines) {
+    if (totalHidden === totalMines
+      // avoid auto-wins
+      && totalHidden !== nRows * nCols) 
+    {
       // total mines is set to string to prevent infinite loop
       // and still appear the same
       this.setState({ gameStatus: 'Scoring',
