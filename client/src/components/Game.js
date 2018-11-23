@@ -141,16 +141,6 @@ class Game extends Component {
       });
     }
     
-    // update totalhidden
-    if (gameStatus === 'Calculating') {
-      this.setState({
-        totalHidden: this.gridReduce((i, j) =>
-          gridState[i][j].isRevealed ? 0 : 1
-        ),
-        gameStatus: 'Playing'
-      });
-    }
-    
     // win condition
     if (totalHidden === totalMines
       // avoid auto-wins
@@ -457,8 +447,12 @@ class Game extends Component {
     // reveal tile
     this.changeTile(i, j, {isRevealed: true});
     
-    // this will trigger recount of totalHidden in componentDidUpdate
-    this.setState({ gameStatus: 'Calculating' });
+    // recount of totalHidden
+    this.setState({
+      totalHidden: this.gridReduce((i, j) =>
+        gridState[i][j].isRevealed ? 0 : 1
+      ),
+    });
     
     // recursively clear adjacent tiles if 0 nearby
     if (nearby === 0 && !hasMine) {
