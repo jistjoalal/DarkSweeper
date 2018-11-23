@@ -91,7 +91,7 @@ class Game extends Component {
             mouseLeave={this.mouseLeave}
             handleTouch={this.handleTouch}
           />
-          
+          test
           <Popup
             text={gameStatus}
             xrayUsed={xrayUsed}
