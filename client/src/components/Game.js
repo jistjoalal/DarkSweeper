@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import crypto from 'crypto';
 
 import './Game.scss';
 
@@ -47,6 +48,7 @@ class Game extends Component {
       ignoreNextClick: false,
       scoreSubmission: null,
       xrayUsed: false,
+      hash: null,
     };
   }
   
@@ -157,8 +159,16 @@ class Game extends Component {
     
     if (gameStatus === 'Scoring') {
       this.setState({
+        gameStatus: 'Hashing',
+        score: this.scoreGrid(),
+      });
+    }
+    
+    if (gameStatus === 'Hashing') {
+      const { score, time } = this.state;
+      this.setState({
         gameStatus: 'Winner!',
-        score: this.scoreGrid()
+        hash: crypto.createHash('sha1').update(`${score} ${time}`).digest('base64'),
       });
     }
   }
@@ -328,14 +338,25 @@ class Game extends Component {
   
   submitHiscore = e => {
     const name = e.target[0].value;
-    const { score, time } = this.state;
-    this.setState({scoreSubmission: {
-      name, score, time,
-      speed: (score / time)
-    }});
-    this.newGame();
+    const { score, time, hash } = this.state;
+    const tHash = crypto.createHash('sha1').update(`${score} ${time}`).digest('base64')
+    if (tHash === hash) {
+      this.setState({scoreSubmission: {
+        name, score, time,
+        speed: (score / time)
+      }});
+      this.newGame();
+    }
+    else {
+      this.setState({
+        gameStatus: '🚨 Hacker',
+      })
+    }
     e.preventDefault();
   }
+
+  
+  //hash: `${score} ${time}`
   
   scoreGrid = () => {
     const anyUB = this.anyUnrevealedBlank();
