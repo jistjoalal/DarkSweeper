@@ -21,6 +21,7 @@ const NEARBY_COORDS = [
 // TODO: refactor
 // TODO: better performance? bigger grids?
 // TODO: adjust tile size?
+// TODO: hiscore hack
 class Game extends Component {
   
   constructor(props) {
@@ -76,7 +77,7 @@ class Game extends Component {
             onColChange={this.onColChange}
             onRowChange={this.onRowChange}
             onChanceChange={this.onChanceChange}
-            submitSize={this.submitSize}
+            newGame={this.newGame}
           />
         </div>
         
@@ -303,19 +304,15 @@ class Game extends Component {
     });
   }
 
-  // Grid size
-  submitSize = e => {
-    if (!isNaN(e.target.value)) {
-      this.newGame();
-    }
-  }
   onColChange = e => {
-    if (!isNaN(parseInt(e.target.value))) {
+    const v = parseInt(e.target.value)
+    if (v > 0 && v <= 32) {
       this.setState({ nCols: parseInt(e.target.value)})
     }
   }
   onRowChange = e => {
-    if (!isNaN(parseInt(e.target.value))) {
+    const v = parseInt(e.target.value)
+    if (v > 0 && v <= 32) {
       this.setState({ nRows: parseInt(e.target.value)})
     }
   }
