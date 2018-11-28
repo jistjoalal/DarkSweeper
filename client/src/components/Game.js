@@ -22,7 +22,6 @@ const NEARBY_COORDS = [
 // TODO: refactor
 // TODO: better performance? bigger grids?
 // TODO: adjust tile size?
-// TODO: hiscore hack
 class Game extends Component {
   
   constructor(props) {
@@ -349,7 +348,7 @@ class Game extends Component {
     }
     else {
       this.setState({
-        gameStatus: '🚨 Hacker',
+        gameStatus: '🚨 Hacker 🚨',
       })
     }
     e.preventDefault();
