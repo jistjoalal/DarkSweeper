@@ -1,7 +1,7 @@
 node_modules/
 .client/node_modules/
 elasticbeanstalk/
-scripts/
+scripts/env.sh
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

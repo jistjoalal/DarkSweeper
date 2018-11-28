@@ -47,12 +47,9 @@ This is an express server that connects to a MongoDB instance in the cloud,
 serves the create-react-app build directory, and connects the two using GraphQL
 and Apollo.
 
-## Deploy Sequence
+## Deploy Script
 ```sh
-npm run build
-git add -A
-git commit -m "deploy changes"
-eb deploy
+./scripts/deploy.sh "commit msg"
 ```
 Server hosted on AWS Elastic Beanstalk. The DB is hosted on [mLab](https://mlab.com/).
 Connect with environment variable on AWS:
