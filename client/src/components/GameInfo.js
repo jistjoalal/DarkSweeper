@@ -1,10 +1,10 @@
 import React from 'react';
 
 // mines left, etc.
-const GameInfo = ({ mines, hidden, time }) =>
+const GameInfo = ({ mines, hidden, time, flags }) =>
   <div className="Game-info">
     <p>
-      <span role="img" aria-label="bomb">💣</span> {mines}
+      <span role="img" aria-label="bomb">💣</span> {mines - flags}
       <span role="img" aria-label="question"> ❓</span> {hidden}
       <span role="img" aria-label="timer"> ⏱</span> {time}
     </p>
