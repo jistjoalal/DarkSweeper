@@ -23,6 +23,7 @@ body {
 a {
     text-decoration: none;
     color: $light;
+    cursor: pointer;
 }
 a:hover {
     text-decoration: underline;
@@ -49,6 +50,76 @@ input[type="number"] {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+footer {
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+
+/*
+    App
+*/
+
+.App-button {
+  background: transparent;
+  color: $light;
+  cursor: pointer;
+}
+
+.fa, .App-button {
+  &:hover {
+    text-shadow: 0 0 5px $light-shadow;
+  }
+}
+
+/*
+    Hiscores
+*/
+
+.HiscorePage {
+  padding: 20px;
+  min-width: 400px;
+}
+
+.HiscoreView, .HiscorePage {
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  background: $dark;
+}
+
+.Hiscores {
+  border: 1px solid $light-shadow;
+  box-shadow: 0 1px 0 $dark-shadow;
+  width: 100%;
+  .Hiscore {
+    list-style: none;
+    display: flex;
+    span {
+      flex: 1;
+      padding: 5px 0;
+      text-align: center;
+    }
+
+    .HiscoreHeader {
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    &:nth-child(2) {
+      color: gold !important;
+      text-shadow: 0 0 3px $dark-shadow;
+    }
+
+    &:nth-child(even) {
+      color: black;
+      background: $light-shadow;
+    }
+  }
 }
 
 /*
@@ -116,50 +187,6 @@ input[type="number"] {
         top: 1px;
         background: $light;
       }
-  }
-  .HiscoreView {
-    font-family: 'Montserrat', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 10px;
-    .Hiscores {
-      border: 1px solid $light-shadow;
-      box-shadow: 0 1px 0 $dark-shadow;
-      width: 100%;
-      .Hiscore {
-        list-style: none;
-        display: flex;
-        span {
-          flex: 1;
-          padding: 5px 0;
-        }
-
-        .HiscoreHeader {
-          text-decoration: underline;
-          font-weight: bold;
-        }
-
-        &:nth-child(2) {
-          color: gold !important;
-          text-shadow: 0 0 3px $dark-shadow;
-        }
-
-        &:nth-child(even) {
-          color: black;
-          background: $light-shadow;
-        }
-      }
-    }
-  }
-  footer {
-    margin-top: 30px;
-    a {
-      color: $light;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-weight: bold;
-    }
   }
 }
 

@@ -1,3 +1,5 @@
+import React from 'react';
+
 const HiddenToggle = props => {
   if (props.show) {
       return props.children;
@@ -7,4 +9,11 @@ const HiddenToggle = props => {
 // number range helper
 const range = n => [...Array(n).keys()];
 
-export { HiddenToggle, range };
+const Hiscore = ({ name, score, time }) =>
+  <li className="Hiscore">
+    <span>{name}</span>
+    <span>{score} / {time}</span>
+  </li>
+
+
+export { HiddenToggle, range, Hiscore };

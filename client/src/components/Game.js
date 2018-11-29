@@ -57,6 +57,7 @@ class Game extends Component {
       xrayOn, infoOn, theme, time, score, scoreSubmission,
       xrayUsed,
     } = this.state;
+    const { view, toggleView } = this.props;
       
     return (
       <div className="Game">
@@ -113,8 +114,11 @@ class Game extends Component {
         
         <footer>
           <a href="https://github.com/jistjoalal/DarkSweeper">
-            <i className="fa fa-2x fa-github"></i>
+            <i className="fa fa-3x fa-github"></i>
           </a>
+          <button onClick={toggleView} className={`App-button`}>
+            <i className="fa fa-3x fa-trophy"></i>
+          </button>
         </footer>
       </div>
     );

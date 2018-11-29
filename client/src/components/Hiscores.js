@@ -1,30 +1,9 @@
 import React, {Component} from 'react';
 import { graphql, compose } from 'react-apollo';
-import { gql } from 'apollo-boost';
 
-const getHiscoresQuery = gql`
-  {
-    hiscores{
-      id
-      name
-      score
-      time
-      speed
-    }
-  }
-`;
+import { getHiscoresQuery, addHiscoreMutation } from '../queries';
 
-const addHiscoreMutation = gql`
-  mutation($name: String!, $score: Int!, $time: Int!, $speed: Float!){
-    addHiscore(name: $name, score: $score, time: $time, speed: $speed){
-      id
-      name
-      score
-      time
-      speed
-    }
-  }
-`;
+import { Hiscore } from './generic';
 
 class Hiscores extends Component {
 
@@ -83,12 +62,6 @@ class Hiscores extends Component {
     })
   }
 }
-
-const Hiscore = ({ name, score, time }) =>
-  <li className="Hiscore">
-    <span>{name}</span>
-    <span>{score} / {time}</span>
-  </li>
 
 export default compose(
   graphql(getHiscoresQuery, {name: 'getHiscoresQuery'}),

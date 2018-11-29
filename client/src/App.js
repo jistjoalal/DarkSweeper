@@ -3,6 +3,7 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
 import Game from './components/Game';
+import HiscorePage from './components/HiscorePage';
 
 const client = new ApolloClient({
   uri: '/graphql'
@@ -11,10 +12,28 @@ const client = new ApolloClient({
 // TODO: hiscores page with sorting and pagination (just to view)
 class App extends Component {
   
+  constructor(props) {
+    super(props);
+    this.state = {
+      view: 'All Hiscores',
+    };
+  }
+
+  toggleView = () => {
+    const { view } = this.state;
+    this.setState({
+      view: view === 'Back to Game' ? 'All Hiscores' : 'Back to Game',
+    })
+  }
+
   render() {
+    const { view } = this.state;
     return (
       <ApolloProvider client={client}>
-        <Game />
+        {view === 'All Hiscores' ?
+          <Game toggleView={this.toggleView} />
+        : <HiscorePage toggleView={this.toggleView} />
+        }
       </ApolloProvider>
     )
   }
