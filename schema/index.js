@@ -33,17 +33,11 @@ const HiscoreType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
-    hiscore: {
-      type: HiscoreType,
-      args: { id: { type: GraphQLID }},
-      resolve(parent, args){
-        return Hiscore.findById(args.id);
-      }
-    },
     hiscores: {
       type: new GraphQLList(HiscoreType),
+      args: { page: { type: GraphQLInt }},
       resolve(parent, args){
-        return Hiscore.find({}).sort('-speed').limit(10);
+        return Hiscore.find({}).sort('-speed').skip(10*args.page).limit(10);
       }
     },
   }

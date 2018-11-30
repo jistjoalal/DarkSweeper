@@ -1,0 +1,61 @@
+
+/*
+    General
+*/
+
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+$dark: rgb(17, 17, 51);
+$light: rgb(224, 224, 238);
+$light-shadow: rgba(204, 204, 238, 0.5);
+$dark-shadow: rgba(17, 17, 51, 0.9);
+
+$dark-theme-black: rgb(3, 3, 13);
+$dark-theme-gray: rgb(33, 33, 43);
+
+body {
+  background: gray;
+  color: $light;
+  font-family: 'Raleway', sans-serif;
+}
+
+a {
+  text-decoration: none;
+  color: $light;
+  cursor: pointer;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+// remove weird button text border
+button, button::-moz-focus-inner {
+ outline:none;
+ border: 0;
+}
+
+/* Hide HTML5 Up and Down arrows. */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+footer {
+  width: 100%;
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}

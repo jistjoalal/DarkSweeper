@@ -3,7 +3,7 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 
 import Game from './components/Game';
-import HiscorePage from './components/HiscorePage';
+import HiscorePages from './components/HiscorePages';
 
 const client = new ApolloClient({
   uri: '/graphql'
@@ -15,7 +15,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'All Hiscores',
+      view: 'Back to Game',
     };
   }
 
@@ -32,7 +32,7 @@ class App extends Component {
       <ApolloProvider client={client}>
         {view === 'All Hiscores' ?
           <Game toggleView={this.toggleView} />
-        : <HiscorePage toggleView={this.toggleView} />
+        : <HiscorePages toggleView={this.toggleView} />
         }
       </ApolloProvider>
     )

@@ -57,7 +57,7 @@ class Game extends Component {
       xrayOn, infoOn, theme, time, score, scoreSubmission,
       xrayUsed,
     } = this.state;
-    const { view, toggleView } = this.props;
+    const { toggleView } = this.props;
       
     return (
       <div className="Game">

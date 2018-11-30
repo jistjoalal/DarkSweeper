@@ -5,6 +5,8 @@ import { getHiscoresQuery, addHiscoreMutation } from '../queries';
 
 import { Hiscore } from './generic';
 
+// TODO: seperate submitter and pages, game view has both,
+//  - hiscore view has just pages
 class Hiscores extends Component {
 
   constructor(props) {

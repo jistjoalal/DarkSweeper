@@ -1,8 +1,8 @@
 import { gql } from 'apollo-boost';
 
 const getHiscoresQuery = gql`
-  {
-    hiscores{
+  query($page: Int){
+    hiscores(page: $page){
       id
       name
       score
