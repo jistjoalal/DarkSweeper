@@ -9,7 +9,8 @@ import GameInfo from './GameInfo';
 import GameButtons from './GameButtons';
 import GameInputs from './GameInputs';
 import Popup from './Popup';
-import Hiscores from './Hiscores';
+import HiscoreSubmitter from './HiscoreSubmitter';
+import HiscorePage from './HiscorePage';
 
 // adjacent tiles
 const NEARBY_COORDS = [
@@ -110,7 +111,9 @@ class Game extends Component {
           mines={totalMines} flags={totalFlags} hidden={totalHidden} time={time}
         /> : null}
 
-        <Hiscores scoreSubmission={scoreSubmission} />
+        <HiscoreSubmitter scoreSubmission={scoreSubmission} />
+        <h2>Top 10:</h2>
+        <HiscorePage page={0} />
         
         <footer>
           <a href="https://github.com/jistjoalal/DarkSweeper">

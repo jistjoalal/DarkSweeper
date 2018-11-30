@@ -3,12 +3,7 @@ import { graphql, compose } from 'react-apollo';
 
 import { getHiscoresQuery, addHiscoreMutation } from '../queries';
 
-import { Hiscore } from './generic';
-
-// TODO: seperate submitter and pages, game view has both,
-//  - hiscore view has just pages
-class Hiscores extends Component {
-
+class HiscoreSubmitter extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -27,32 +22,9 @@ class Hiscores extends Component {
 
   render() {
     return (
-      <div className="HiscoreView">
-        <h2>Top 10:</h2>
-        <div className="Hiscores">
-          <li className="Hiscore">
-            <span className="HiscoreHeader">Name</span>
-            <span className="HiscoreHeader">EBV / s</span>
-          </li>
-          {this.displayHiscores()}
-        </div>
+      <div style={{display: 'none'}}>
       </div>
     )
-  }
-
-  displayHiscores = () => {
-    const data = this.props.getHiscoresQuery;
-    if (data.loading) {
-      return <li>Loading Hiscores...</li>;
-    }
-    else {
-      if (!data.hiscores) {
-        return <li>Couldn't connect to DB</li>
-      }
-      return data.hiscores.map(hiscore => {
-        return <Hiscore key={hiscore.id} {...hiscore} />
-      })
-    }
   }
 
   submitHiscore = () => {
@@ -68,4 +40,4 @@ class Hiscores extends Component {
 export default compose(
   graphql(getHiscoresQuery, {name: 'getHiscoresQuery'}),
   graphql(addHiscoreMutation, {name: 'addHiscoreMutation'}),
-)(Hiscores);
+)(HiscoreSubmitter);
