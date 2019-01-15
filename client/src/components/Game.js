@@ -11,6 +11,7 @@ import GameButtons from './GameButtons';
 import GameInputs from './GameInputs';
 import Popup from './Popup';
 import HiscoreTop10 from './HiscoreTop10';
+import TitleBar from './TitleBar';
 
 // adjacent tiles
 const NEARBY_COORDS = [
@@ -61,6 +62,7 @@ class Game extends Component {
       
     return (
       <div className="Game">
+        <TitleBar title="DarkSweeper" />
         <div className="Game-menu">
           <GameButtons
             newGame={this.newGame}

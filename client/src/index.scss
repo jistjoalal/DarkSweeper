@@ -59,3 +59,15 @@ footer {
   justify-content: space-around;
   align-items: center;
 }
+
+.TitleBar {
+  color: $light;
+  width: 100%;
+}
+
+.wrapper {
+  margin: 0 auto;
+  max-width: 400px;
+  padding: 0 20px;
+  text-align: center;
+}

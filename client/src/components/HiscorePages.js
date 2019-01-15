@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import HiscorePage from './HiscorePage';
+import TitleBar from './TitleBar';
 
 import '../index.scss';
 
@@ -15,7 +16,7 @@ class HiscorePages extends Component {
     const { page } = this.state;
     return (
       <div className="HiscorePage">
-        <h1>Hiscores</h1>
+        <TitleBar title="Hiscores" />
 
         <HiscorePage page={page} />
 
