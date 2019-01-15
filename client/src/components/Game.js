@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 import crypto from 'crypto';
 
 import './Game.scss';
@@ -57,7 +58,6 @@ class Game extends Component {
       xrayOn, infoOn, theme, time, score, scoreSubmission,
       xrayUsed,
     } = this.state;
-    const { toggleView } = this.props;
       
     return (
       <div className="Game">
@@ -116,9 +116,9 @@ class Game extends Component {
           <a href="https://github.com/jistjoalal/DarkSweeper">
             <i className="fa fa-3x fa-github"></i>
           </a>
-          <button onClick={toggleView} className={`App-button`}>
+          <Link to="/hiscores">
             <i className="fa fa-3x fa-trophy"></i>
-          </button>
+          </Link>
         </footer>
       </div>
     );

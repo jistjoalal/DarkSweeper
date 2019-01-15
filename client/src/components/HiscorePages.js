@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 import HiscorePage from './HiscorePage';
 
 import '../index.scss';
@@ -11,7 +12,6 @@ class HiscorePages extends Component {
     }
   }
   render() {
-    const { toggleView } = this.props;
     const { page } = this.state;
     return (
       <div className="HiscorePage">
@@ -23,9 +23,9 @@ class HiscorePages extends Component {
           <button onClick={this.prevPage} className={`App-button`}>
             <i className="fa fa-3x fa-arrow-left"></i>
           </button>
-          <button onClick={toggleView} className={`App-button`}>
+          <Link to="/">
             <i className="fa fa-3x fa-undo"></i>
-          </button>
+          </Link>
           <button onClick={this.nextPage} className={`App-button`}>
             <i className="fa fa-3x fa-arrow-right"></i>
           </button>
