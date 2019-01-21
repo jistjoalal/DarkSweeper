@@ -4,12 +4,6 @@ const path = require('path');
 const graphqlHTTP = require('express-graphql');
 const mongoose = require('mongoose');
 
-// serve client build as root
-app.use(express.static(path.join(__dirname, 'client/build')));
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'));
-})
-
 // check env vars
 const { DS_DB_URL, PORT } = process.env;
 // exit if no db url set
@@ -33,7 +27,13 @@ app.use('/graphql', graphqlHTTP({
   schema,
   // disable graphiql in prod
   graphiql: port === 3001
-}))
+}));
+
+// serve client build for any route
+app.use(express.static(path.join(__dirname, 'client/build')));
+app.get('*',function (req, res) {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
+});
 
 // run express server
 app.listen(port, () => {
