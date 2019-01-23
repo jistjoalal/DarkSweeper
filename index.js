@@ -22,7 +22,7 @@ mongoose.connection.once('open', () => {
 
 
 // define schema
-const schema = require('./schema');
+const schema = require('./server/schema');
 app.use('/graphql', graphqlHTTP({
   schema,
   // disable graphiql in prod

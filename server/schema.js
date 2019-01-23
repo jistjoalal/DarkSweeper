@@ -14,7 +14,7 @@ const {
 } = require('graphql-iso-date');
 
 // model imports
-const Hiscore = require('../models/hiscore');
+const Hiscore = require('./models/hiscore');
 
 // hiscore
 const HiscoreType = new GraphQLObjectType({

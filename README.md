@@ -21,14 +21,14 @@ wanted the power to xray the board. And to learn how to use React!
 ```
 git clone git@github.com:jistjoalal/DarkSweeper.git
 ```
-## Development server
+## Development server (port 3000)
 ```sh
 cd DarkSweeper/client
 npm install
 npm start
 ```
 
-## Optimized build
+## Optimized build (port 5000)
 ```sh
 cd Darksweeper/client
 npm install
@@ -37,7 +37,7 @@ npm i -g serve
 serve -s build
 ```
 
-## Back-end
+## Back-end (port 3001)
 ```sh
 cd Darksweeper
 npm install
