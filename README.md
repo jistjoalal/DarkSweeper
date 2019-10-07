@@ -53,24 +53,3 @@ npm start
 This is an express server that connects to a MongoDB instance in the cloud,
 serves the create-react-app build directory, and connects the two using GraphQL
 and Apollo.
-
-## Deploy Script
-
-```sh
-./scripts/deploy.sh "commit msg"
-```
-
-Server hosted on AWS Elastic Beanstalk. The DB is hosted on [mLab](https://mlab.com/).
-Connect with environment variable on AWS:
-
-```
-// only needs to run once ever per AWS environment!
-eb setenv DS_DB_URL=mongodb://<dbuser>:<dbpass>@url:port/database
-```
-
-### Deploy from new machine
-
-AWS EB uses some background files to make deploying this simple. I use a private
-repo to sync these files to be able to deploy from multiple machines.
-
-[More info](https://stackoverflow.com/questions/28821632/how-to-configure-eb-cli-with-eb-env-that-is-already-running)

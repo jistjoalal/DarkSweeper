@@ -1,9 +1,3 @@
 node_modules/
 .client/node_modules/
-elasticbeanstalk/
-scripts/env.sh
-
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
+.env
