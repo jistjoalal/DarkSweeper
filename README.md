@@ -11,7 +11,7 @@ Minesweeper with a dark theme and other cool features!
 
 ## Play Darksweeper:
 
-[![Screenshot](https://jist-screenshotter.herokuapp.com/desktop/https://darksweeper.com/)](https://darksweeper.com)
+[![Screenshot](https://jist-screenshotter.herokuapp.com/desktop/https://ds.jist.dev/)](https://ds.jist.dev/)
 
 ## Why?
 
